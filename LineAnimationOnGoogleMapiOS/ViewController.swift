@@ -11,9 +11,38 @@ import GoogleMaps
 
 class ViewController: UIViewController {
 
+    var mapView: GMSMapView! = nil
+    var markerStart = GMSMarker()
+    var markerEnd = GMSMarker()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        let viewFrame = view.frame;
+        let mapFrame = CGRect(x: 0, y: 44, width: viewFrame.size.width, height: viewFrame.size.width)
+
+        // Create a GMSCameraPosition that tells the map to display coordinate.
+        let camera = GMSCameraPosition.camera(withLatitude: 1.2863672, longitude: 103.8543371, zoom: 14.5)
+        mapView = GMSMapView.map(withFrame: mapFrame, camera: camera)
+        view.addSubview(mapView)
+
+        // Creates markers.
+
+        markerStart.position = CLLocationCoordinate2D(latitude: 1.278287, longitude: 103.845669)
+        markerStart.icon = GMSMarker.markerImage(with: .blue)
+        markerStart.map = mapView
+
+        markerEnd.position = CLLocationCoordinate2D(latitude: 1.292747, longitude: 103.859696)
+        markerEnd.icon = GMSMarker.markerImage(with: .green)
+        markerEnd.map = mapView
+
+        // Creates a polyline
+        let path = GMSMutablePath()
+        path.add(CLLocationCoordinate2D(latitude: 1.278287, longitude: 103.845669))
+        path.add(CLLocationCoordinate2D(latitude: 1.292747, longitude: 103.859696))
+        let polyline = GMSPolyline(path: path)
+        polyline.map = mapView
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,27 +50,5 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func loadView() {
-        // Create a GMSCameraPosition that tells the map to display the
-        // coordinate -33.86,151.20 at zoom level 6.
-        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 10.0)
-        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        view = mapView
-
-        // Creates a marker in the center of the map.
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = mapView
-
-        // Creates a polyline
-        let path = GMSMutablePath()
-        path.add(CLLocationCoordinate2D(latitude: -33.85, longitude: 151.20))
-        path.add(CLLocationCoordinate2D(latitude: -33.70, longitude: 151.40))
-        path.add(CLLocationCoordinate2D(latitude: -33.73, longitude: 151.41))
-        let polyline = GMSPolyline(path: path)
-        polyline.map = mapView
-    }
 }
 
