@@ -11,9 +11,16 @@ import GoogleMaps
 
 class ViewController: UIViewController {
 
+    let FPS = 24
+    let TOTAL_SECONDS = 4
+
     var mapView: GMSMapView! = nil
     var markerStart = GMSMarker()
     var markerEnd = GMSMarker()
+    var polyline = GMSPolyline(path: GMSMutablePath())
+
+    var positionStart = CLLocationCoordinate2D(latitude: 1.277287, longitude: 103.845669)
+    var positionEnd = CLLocationCoordinate2D(latitude: 1.292747, longitude: 103.859696)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,20 +34,19 @@ class ViewController: UIViewController {
         view.addSubview(mapView)
 
         // Creates markers.
-
-        markerStart.position = CLLocationCoordinate2D(latitude: 1.278287, longitude: 103.845669)
+        markerStart.position = positionStart
         markerStart.icon = GMSMarker.markerImage(with: .blue)
         markerStart.map = mapView
 
-        markerEnd.position = CLLocationCoordinate2D(latitude: 1.292747, longitude: 103.859696)
+        markerEnd.position = positionEnd
         markerEnd.icon = GMSMarker.markerImage(with: .green)
         markerEnd.map = mapView
 
         // Creates a polyline
         let path = GMSMutablePath()
-        path.add(CLLocationCoordinate2D(latitude: 1.278287, longitude: 103.845669))
-        path.add(CLLocationCoordinate2D(latitude: 1.292747, longitude: 103.859696))
-        let polyline = GMSPolyline(path: path)
+        path.add(positionStart)
+        path.add(positionEnd)
+        polyline.path = path
         polyline.map = mapView
 
     }
