@@ -27,7 +27,8 @@ class RouteGenerator {
         route.add(originalLocations[0])
         route.add(originalLocations[0])
         currentIndex = -1
-        timingFunction = RSTimingFunction.init(name: kRSTimingFunctionEaseInEaseOut)
+        //timingFunction = RSTimingFunction.init(name: kRSTimingFunctionEaseInEaseOut)
+        timingFunction = RSTimingFunction.init(controlPoint1: CGPoint(x: 0.5, y: 0), controlPoint2: CGPoint(x: 0.5, y: 1.0))
     }
 
     func nextRoute() -> GMSMutablePath {

@@ -12,7 +12,7 @@ import GoogleMaps
 class ViewController: UIViewController {
 
     let FPS = 20
-    let TOTAL_SECONDS = 3
+    let TOTAL_SECONDS = 2
 
     var mapView: GMSMapView! = nil
     var markerStart = GMSMarker()
