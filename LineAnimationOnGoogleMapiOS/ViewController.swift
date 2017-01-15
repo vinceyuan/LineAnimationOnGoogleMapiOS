@@ -11,8 +11,8 @@ import GoogleMaps
 
 class ViewController: UIViewController {
 
-    let FPS = 24
-    let TOTAL_SECONDS = 4
+    let FPS = 20
+    let TOTAL_SECONDS = 3
 
     var mapView: GMSMapView! = nil
     var markerStart = GMSMarker()
@@ -51,7 +51,11 @@ class ViewController: UIViewController {
         polyline.path = path
         polyline.map = mapView
 
+        // Creates a RouteGenerator
         routeGenerator = RouteGenerator(originalLocations: [markerStart.position, markerEnd.position], totalIntervals: TOTAL_SECONDS * FPS)
+
+        // Starts animation
+        startAnimation()
 
     }
 
@@ -67,6 +71,9 @@ class ViewController: UIViewController {
 
 
     func startAnimation() {
+        Timer.scheduledTimer(withTimeInterval: 1.0/Double(FPS), repeats: true) { (timer: Timer) in
+            self.polyline.path = self.routeGenerator.nextRoute()
+        }
         
     }
 
