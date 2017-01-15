@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     var positionStart = CLLocationCoordinate2D(latitude: 1.277287, longitude: 103.845669)
     var positionEnd = CLLocationCoordinate2D(latitude: 1.292747, longitude: 103.859696)
 
+    var routeGenerator: RouteGenerator! = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,11 +51,23 @@ class ViewController: UIViewController {
         polyline.path = path
         polyline.map = mapView
 
+        routeGenerator = RouteGenerator(originalLocations: [markerStart.position, markerEnd.position], totalIntervals: TOTAL_SECONDS * FPS)
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func didPressButtonChange(_ sender: Any) {
+        
+        polyline.path = routeGenerator.nextRoute()
+    }
+
+
+    func startAnimation() {
+        
     }
 
 }

@@ -13,6 +13,7 @@
 		585E683B1E2809650072F987 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 585E683A1E2809650072F987 /* Assets.xcassets */; };
 		585E683E1E2809650072F987 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 585E683C1E2809650072F987 /* LaunchScreen.storyboard */; };
 		585E68491E2809650072F987 /* LineAnimationOnGoogleMapiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585E68481E2809650072F987 /* LineAnimationOnGoogleMapiOSTests.swift */; };
+		585E68541E2B7C1C0072F987 /* RouteGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585E68531E2B7C1C0072F987 /* RouteGenerator.swift */; };
 		B0584F3DE9F9B469F9D70BAF /* Pods_LineAnimationOnGoogleMapiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF1426A21482C775514BCF8 /* Pods_LineAnimationOnGoogleMapiOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		585E68441E2809650072F987 /* LineAnimationOnGoogleMapiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LineAnimationOnGoogleMapiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		585E68481E2809650072F987 /* LineAnimationOnGoogleMapiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineAnimationOnGoogleMapiOSTests.swift; sourceTree = "<group>"; };
 		585E684A1E2809650072F987 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		585E68531E2B7C1C0072F987 /* RouteGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteGenerator.swift; sourceTree = "<group>"; };
 		9A72DDF913D6CB384AC52ADA /* Pods_LineAnimationOnGoogleMapiOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LineAnimationOnGoogleMapiOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E605FCA96E499ED20007076 /* Pods-LineAnimationOnGoogleMapiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LineAnimationOnGoogleMapiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LineAnimationOnGoogleMapiOS/Pods-LineAnimationOnGoogleMapiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		AA3D48F20219A8E5CB79DE10 /* Pods-LineAnimationOnGoogleMapiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LineAnimationOnGoogleMapiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-LineAnimationOnGoogleMapiOS/Pods-LineAnimationOnGoogleMapiOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			children = (
 				585E68331E2809650072F987 /* AppDelegate.swift */,
 				585E68351E2809650072F987 /* ViewController.swift */,
+				585E68531E2B7C1C0072F987 /* RouteGenerator.swift */,
 				585E68371E2809650072F987 /* Main.storyboard */,
 				585E683A1E2809650072F987 /* Assets.xcassets */,
 				585E683C1E2809650072F987 /* LaunchScreen.storyboard */,
@@ -277,6 +280,7 @@
 			files = (
 				585E68361E2809650072F987 /* ViewController.swift in Sources */,
 				585E68341E2809650072F987 /* AppDelegate.swift in Sources */,
+				585E68541E2B7C1C0072F987 /* RouteGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +486,7 @@
 				585E684F1E2809650072F987 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		585E68501E2809650072F987 /* Build configuration list for PBXNativeTarget "LineAnimationOnGoogleMapiOSTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +495,7 @@
 				585E68521E2809650072F987 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
