@@ -7,5 +7,6 @@ target 'LineAnimationOnGoogleMapiOS' do
 
   pod 'GoogleMaps'
   pod 'GooglePlaces'
-
+  pod 'AFNetworking', '~> 2.0'
+  pod 'SwiftyJSON'
 end
