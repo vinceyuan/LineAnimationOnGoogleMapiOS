@@ -17,6 +17,8 @@ class RouteGenerator {
     var currentIndex: Int
     var route: GMSMutablePath = GMSMutablePath()
 
+    var timingFunction: RSTimingFunction! = nil
+
     init(originalLocations: [CLLocationCoordinate2D],
          totalIntervals: Int
         ) {
@@ -25,14 +27,17 @@ class RouteGenerator {
         route.add(originalLocations[0])
         route.add(originalLocations[0])
         currentIndex = -1
+        timingFunction = RSTimingFunction.init(name: kRSTimingFunctionEaseInEaseOut)
     }
 
     func nextRoute() -> GMSMutablePath {
         route.removeLastCoordinate()
         currentIndex += 1
+        let x = CGFloat(Double(currentIndex) / Double(totalIntervals))
+        let y = Double(timingFunction.valueFor(x: x))
         route.add(CLLocationCoordinate2D(
-            latitude: originalLocations[0].latitude + (originalLocations[1].latitude - originalLocations[0].latitude) * Double(currentIndex) / Double(totalIntervals),
-            longitude: originalLocations[0].longitude + (originalLocations[1].longitude - originalLocations[0].longitude) * Double(currentIndex) / Double(totalIntervals)))
+            latitude: originalLocations[0].latitude + (originalLocations[1].latitude - originalLocations[0].latitude) * y,
+            longitude: originalLocations[0].longitude + (originalLocations[1].longitude - originalLocations[0].longitude) * y))
         if (currentIndex == totalIntervals) {
             currentIndex = -1
         }

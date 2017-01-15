@@ -14,6 +14,7 @@
 		585E683E1E2809650072F987 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 585E683C1E2809650072F987 /* LaunchScreen.storyboard */; };
 		585E68491E2809650072F987 /* LineAnimationOnGoogleMapiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585E68481E2809650072F987 /* LineAnimationOnGoogleMapiOSTests.swift */; };
 		585E68541E2B7C1C0072F987 /* RouteGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585E68531E2B7C1C0072F987 /* RouteGenerator.swift */; };
+		585E68581E2B93860072F987 /* RSTimingFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 585E68571E2B93860072F987 /* RSTimingFunction.m */; };
 		B0584F3DE9F9B469F9D70BAF /* Pods_LineAnimationOnGoogleMapiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF1426A21482C775514BCF8 /* Pods_LineAnimationOnGoogleMapiOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,9 @@
 		585E68481E2809650072F987 /* LineAnimationOnGoogleMapiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineAnimationOnGoogleMapiOSTests.swift; sourceTree = "<group>"; };
 		585E684A1E2809650072F987 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		585E68531E2B7C1C0072F987 /* RouteGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteGenerator.swift; sourceTree = "<group>"; };
+		585E68551E2B93850072F987 /* LineAnimationOnGoogleMapiOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LineAnimationOnGoogleMapiOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		585E68561E2B93860072F987 /* RSTimingFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSTimingFunction.h; sourceTree = "<group>"; };
+		585E68571E2B93860072F987 /* RSTimingFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSTimingFunction.m; sourceTree = "<group>"; };
 		9A72DDF913D6CB384AC52ADA /* Pods_LineAnimationOnGoogleMapiOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LineAnimationOnGoogleMapiOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E605FCA96E499ED20007076 /* Pods-LineAnimationOnGoogleMapiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LineAnimationOnGoogleMapiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LineAnimationOnGoogleMapiOS/Pods-LineAnimationOnGoogleMapiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		AA3D48F20219A8E5CB79DE10 /* Pods-LineAnimationOnGoogleMapiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LineAnimationOnGoogleMapiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-LineAnimationOnGoogleMapiOS/Pods-LineAnimationOnGoogleMapiOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 		585E68321E2809650072F987 /* LineAnimationOnGoogleMapiOS */ = {
 			isa = PBXGroup;
 			children = (
+				585E68561E2B93860072F987 /* RSTimingFunction.h */,
+				585E68571E2B93860072F987 /* RSTimingFunction.m */,
 				585E68331E2809650072F987 /* AppDelegate.swift */,
 				585E68351E2809650072F987 /* ViewController.swift */,
 				585E68531E2B7C1C0072F987 /* RouteGenerator.swift */,
@@ -103,6 +109,7 @@
 				585E683A1E2809650072F987 /* Assets.xcassets */,
 				585E683C1E2809650072F987 /* LaunchScreen.storyboard */,
 				585E683F1E2809650072F987 /* Info.plist */,
+				585E68551E2B93850072F987 /* LineAnimationOnGoogleMapiOS-Bridging-Header.h */,
 			);
 			path = LineAnimationOnGoogleMapiOS;
 			sourceTree = "<group>";
@@ -177,6 +184,7 @@
 				TargetAttributes = {
 					585E682F1E2809650072F987 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					585E68431E2809650072F987 = {
@@ -278,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				585E68581E2B93860072F987 /* RSTimingFunction.m in Sources */,
 				585E68361E2809650072F987 /* ViewController.swift in Sources */,
 				585E68341E2809650072F987 /* AppDelegate.swift in Sources */,
 				585E68541E2B7C1C0072F987 /* RouteGenerator.swift in Sources */,
@@ -418,10 +427,13 @@
 			baseConfigurationReference = 9E605FCA96E499ED20007076 /* Pods-LineAnimationOnGoogleMapiOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = LineAnimationOnGoogleMapiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vinceyuan.LineAnimationOnGoogleMapiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LineAnimationOnGoogleMapiOS/LineAnimationOnGoogleMapiOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -431,10 +443,12 @@
 			baseConfigurationReference = AA3D48F20219A8E5CB79DE10 /* Pods-LineAnimationOnGoogleMapiOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = LineAnimationOnGoogleMapiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vinceyuan.LineAnimationOnGoogleMapiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LineAnimationOnGoogleMapiOS/LineAnimationOnGoogleMapiOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
