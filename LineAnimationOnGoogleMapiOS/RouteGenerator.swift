@@ -25,7 +25,8 @@ class RouteGenerator {
     var timingFunction: RSTimingFunction! = nil
 
     init(originalPath: GMSPath,
-         totalTimingIntervals: Int
+         totalTimingIntervals: Int,
+         timingFunction: RSTimingFunction
         ) {
         var locations: [CLLocationCoordinate2D] = []
         totalDistance = 0
@@ -43,11 +44,8 @@ class RouteGenerator {
         GMSGeometryLength(originalPath)
         self.originalLocations = locations
         self.totalTimingIntervals = totalTimingIntervals
-//        route.add(originalLocations[0])
-//        route.add(originalLocations[0])
         currentTimingIndex = -1
-        //timingFunction = RSTimingFunction.init(name: kRSTimingFunctionEaseInEaseOut)
-        timingFunction = RSTimingFunction.init(controlPoint1: CGPoint(x: 0.6, y: 0), controlPoint2: CGPoint(x: 0.4, y: 1.0))
+        self.timingFunction = timingFunction
     }
 
     func nextRoute() -> GMSMutablePath {

@@ -92,7 +92,10 @@ class ViewController: UIViewController {
             self.polyline.path = path
 
             // Creates a RouteGenerator
-            self.routeGenerator = RouteGenerator(originalPath: path!, totalTimingIntervals: self.TOTAL_SECONDS * self.FPS)
+            self.routeGenerator = RouteGenerator(
+                originalPath: path!,
+                totalTimingIntervals: self.TOTAL_SECONDS * self.FPS,
+                timingFunction: RSTimingFunction.init(controlPoint1: CGPoint(x: 0.6, y: 0), controlPoint2: CGPoint(x: 0.4, y: 1.0)))
 
             self.startAnimation()
 
