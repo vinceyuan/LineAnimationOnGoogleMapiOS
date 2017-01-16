@@ -73,7 +73,7 @@ class ViewController: UIViewController {
     }
 
     func getRoute() {
-        let key = "your_key_here"
+        let key = (UIApplication.shared.delegate as! AppDelegate).googleMapsAPIKey
         var urlString = "\("https://maps.googleapis.com/maps/api/directions/json")?origin=\(markerStart.position.latitude),\(markerStart.position.longitude)&destination=\(markerEnd.position.latitude),\(markerEnd.position.longitude)&sensor=true&key=\(key)"
         urlString = urlString.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)!
 
