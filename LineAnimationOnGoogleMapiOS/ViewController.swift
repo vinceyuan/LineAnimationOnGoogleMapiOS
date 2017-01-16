@@ -19,7 +19,8 @@ class ViewController: UIViewController {
     var mapView: GMSMapView! = nil
     var markerStart = GMSMarker()
     var markerEnd = GMSMarker()
-    var polyline = GMSPolyline(path: GMSMutablePath())
+    var polylineLower = GMSPolyline(path: GMSPath())
+    var polylineUpper = GMSPolyline(path: GMSPath())
 
     var positionStart = CLLocationCoordinate2D(latitude: 1.277287, longitude: 103.845669)
     var positionEnd = CLLocationCoordinate2D(latitude: 1.292747, longitude: 103.859696)
@@ -27,7 +28,9 @@ class ViewController: UIViewController {
     var routeGenerator: RouteGenerator! = nil
     var totalTimingIntervals: Int = TOTAL_SECONDS * FPS
     var allTimingRoutes: [GMSPath] = []
-    var currentTimingIndex: Int = 0
+
+    var currentTimingIndexLower: Int = 0
+    var timerLower: Timer! = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,13 +52,12 @@ class ViewController: UIViewController {
         markerEnd.icon = GMSMarker.markerImage(with: .green)
         markerEnd.map = mapView
 
-        // Creates a polyline
-        let path = GMSMutablePath()
-        polyline.path = path
+        // Creates two polylines
 //        let gradient = GMSStrokeStyle.gradient(from: .green, to: .black)
 //        polyline.spans = [GMSStyleSpan(style: gradient)]
-        polyline.strokeWidth = 2
-        polyline.map = mapView
+        polylineLower.strokeColor = .black
+        polylineLower.strokeWidth = 2
+        polylineLower.map = mapView
 
 
         getRoute()
@@ -91,7 +93,6 @@ class ViewController: UIViewController {
             //if(response != nil){
             let parsedData = JSON(response)
             let path = GMSPath.init(fromEncodedPath: parsedData["routes"][0]["overview_polyline"]["points"].string!)
-            self.polyline.path = path
 
             // Creates a RouteGenerator
             self.routeGenerator = RouteGenerator(
@@ -117,9 +118,14 @@ class ViewController: UIViewController {
 
 
     func startAnimation() {
-        Timer.scheduledTimer(withTimeInterval: 1.0/Double(FPS), repeats: true) { (timer: Timer) in
-            self.polyline.path = self.allTimingRoutes[self.currentTimingIndex]
-            self.currentTimingIndex = (self.currentTimingIndex + 1) % (self.totalTimingIntervals + 1)
+        currentTimingIndexLower = 0
+        timerLower = Timer.scheduledTimer(withTimeInterval: 1.0/Double(FPS), repeats: true) { (timer: Timer) in
+            self.polylineLower.path = self.allTimingRoutes[self.currentTimingIndexLower]
+            if self.currentTimingIndexLower == self.totalTimingIntervals {
+                self.timerLower.invalidate()
+            } else {
+                self.currentTimingIndexLower = (self.currentTimingIndexLower + 1) % (self.totalTimingIntervals + 1)
+            }
         }
         
     }
