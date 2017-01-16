@@ -48,13 +48,11 @@ class ViewController: UIViewController {
 
         // Creates a polyline
         let path = GMSMutablePath()
-        path.add(positionStart)
-        path.add(positionEnd)
+//        path.add(positionStart)
+//        path.add(positionEnd)
         polyline.path = path
         polyline.map = mapView
 
-        // Creates a RouteGenerator
-        routeGenerator = RouteGenerator(originalLocations: [markerStart.position, markerEnd.position], totalIntervals: TOTAL_SECONDS * FPS)
 
         getRoute()
     }
@@ -89,10 +87,14 @@ class ViewController: UIViewController {
             //{"responseString" : "Success","result" : {"userId" : "4"},"errorCode" : 1}
             //if(response != nil){
             let parsedData = JSON(response)
-            //print_debug("parsedData : \(parsedData)")
             let path = GMSPath.init(fromEncodedPath: parsedData["routes"][0]["overview_polyline"]["points"].string!)
             self.polyline.path = path
-            //GMSPath.fromEncodedPath(parsedData["routes"][0]["overview_polyline"]["points"].string!)
+
+            // Creates a RouteGenerator
+            self.routeGenerator = RouteGenerator(originalPath: path!, totalTimingIntervals: self.TOTAL_SECONDS * self.FPS)
+
+            self.startAnimation()
+
         }, failure: {  operation, error -> Void in
 
             //print_debug(error)
