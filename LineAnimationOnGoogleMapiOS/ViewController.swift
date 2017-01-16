@@ -48,9 +48,10 @@ class ViewController: UIViewController {
 
         // Creates a polyline
         let path = GMSMutablePath()
-//        path.add(positionStart)
-//        path.add(positionEnd)
         polyline.path = path
+//        let gradient = GMSStrokeStyle.gradient(from: .green, to: .black)
+//        polyline.spans = [GMSStyleSpan(style: gradient)]
+        polyline.strokeWidth = 2
         polyline.map = mapView
 
 
