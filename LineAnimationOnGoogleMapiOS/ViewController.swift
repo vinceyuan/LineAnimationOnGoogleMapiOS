@@ -11,10 +11,10 @@ import GoogleMaps
 import AFNetworking
 import SwiftyJSON
 
-class ViewController: UIViewController {
+let FPS = 20
+let TOTAL_SECONDS = 2
 
-    let FPS = 20
-    let TOTAL_SECONDS = 2
+class ViewController: UIViewController {
 
     var mapView: GMSMapView! = nil
     var markerStart = GMSMarker()
@@ -25,6 +25,9 @@ class ViewController: UIViewController {
     var positionEnd = CLLocationCoordinate2D(latitude: 1.292747, longitude: 103.859696)
 
     var routeGenerator: RouteGenerator! = nil
+    var totalTimingIntervals: Int = TOTAL_SECONDS * FPS
+    var allTimingRoutes: [GMSPath] = []
+    var currentTimingIndex: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +68,6 @@ class ViewController: UIViewController {
 
     @IBAction func didPressButtonChange(_ sender: Any) {
         
-        polyline.path = routeGenerator.nextRoute()
     }
 
     func getRoute() {
@@ -94,8 +96,12 @@ class ViewController: UIViewController {
             // Creates a RouteGenerator
             self.routeGenerator = RouteGenerator(
                 originalPath: path!,
-                totalTimingIntervals: self.TOTAL_SECONDS * self.FPS,
+                totalTimingIntervals: self.totalTimingIntervals,
                 timingFunction: RSTimingFunction.init(controlPoint1: CGPoint(x: 0.6, y: 0), controlPoint2: CGPoint(x: 0.4, y: 1.0)))
+
+            // Gets and caches all timing routes.
+            // (But the bottle neck is not at computing. It's in google maps rendering.)
+            self.allTimingRoutes = self.routeGenerator.allTimingRoutes()
 
             self.startAnimation()
 
@@ -112,7 +118,8 @@ class ViewController: UIViewController {
 
     func startAnimation() {
         Timer.scheduledTimer(withTimeInterval: 1.0/Double(FPS), repeats: true) { (timer: Timer) in
-            self.polyline.path = self.routeGenerator.nextRoute()
+            self.polyline.path = self.allTimingRoutes[self.currentTimingIndex]
+            self.currentTimingIndex = (self.currentTimingIndex + 1) % (self.totalTimingIntervals + 1)
         }
         
     }

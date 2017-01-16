@@ -19,9 +19,6 @@ class RouteGenerator {
     var cumulativeDistances: [CLLocationDistance] = []  // N
     var totalTimingIntervals: Int
 
-    var currentTimingIndex: Int
-    var route: GMSMutablePath = GMSMutablePath()
-
     var timingFunction: RSTimingFunction! = nil
 
     init(originalPath: GMSPath,
@@ -44,14 +41,21 @@ class RouteGenerator {
         GMSGeometryLength(originalPath)
         self.originalLocations = locations
         self.totalTimingIntervals = totalTimingIntervals
-        currentTimingIndex = -1
         self.timingFunction = timingFunction
     }
 
-    func nextRoute() -> GMSMutablePath {
-        route.removeAllCoordinates()
-        currentTimingIndex += 1
-        let x = CGFloat(Double(currentTimingIndex) / Double(totalTimingIntervals))
+    func allTimingRoutes() -> [GMSPath] {
+        var routes: [GMSPath] = []
+        for i: Int in 0 ... totalTimingIntervals {
+            routes.append(route(at: i))
+        }
+        return routes
+    }
+
+    // Get a route at timing index
+    func route(at timingIndex: Int) -> GMSPath {
+        let route = GMSMutablePath()
+        let x = CGFloat(Double(timingIndex) / Double(totalTimingIntervals))
         let y = Double(timingFunction.valueFor(x: x))
         let distance = totalDistance * y
 
@@ -65,12 +69,6 @@ class RouteGenerator {
             let newLocation = GMSGeometryInterpolate(originalLocations[index], originalLocations[index + 1], fraction)
             route.add(newLocation)
         }
-
-        if (currentTimingIndex == totalTimingIntervals) {
-            currentTimingIndex = -1
-        }
-
-        //print(currentTimingIndex, distance, index, matched)
 
         return route
     }
