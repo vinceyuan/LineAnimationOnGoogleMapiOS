@@ -31,6 +31,8 @@ class ViewController: UIViewController {
 
     var currentTimingIndexLower: Int = 0
     var timerLower: Timer! = nil
+    var currentTimingIndexUpper: Int = 0
+    var timerUpper: Timer! = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +61,9 @@ class ViewController: UIViewController {
         polylineLower.strokeWidth = 2
         polylineLower.map = mapView
 
+        polylineUpper.strokeColor = .gray
+        polylineUpper.strokeWidth = 2
+        polylineUpper.map = mapView
 
         getRoute()
     }
@@ -116,18 +121,29 @@ class ViewController: UIViewController {
         })
     }
 
-
     func startAnimation() {
+        startLowerRouteAnimation()
+    }
+
+    func startLowerRouteAnimation() {
         currentTimingIndexLower = 0
         timerLower = Timer.scheduledTimer(withTimeInterval: 1.0/Double(FPS), repeats: true) { (timer: Timer) in
             self.polylineLower.path = self.allTimingRoutes[self.currentTimingIndexLower]
             if self.currentTimingIndexLower == self.totalTimingIntervals {
                 self.timerLower.invalidate()
+                self.startUpperRouteAnimation()
             } else {
                 self.currentTimingIndexLower = (self.currentTimingIndexLower + 1) % (self.totalTimingIntervals + 1)
             }
         }
-        
+    }
+
+    func startUpperRouteAnimation() {
+        currentTimingIndexUpper = 0
+        timerUpper = Timer.scheduledTimer(withTimeInterval: 1.0/Double(FPS), repeats: true) { (timer: Timer) in
+            self.polylineUpper.path = self.allTimingRoutes[self.currentTimingIndexUpper]
+            self.currentTimingIndexUpper = (self.currentTimingIndexUpper + 1) % (self.totalTimingIntervals + 1)
+        }
     }
 
 }
