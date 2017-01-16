@@ -13,6 +13,7 @@ import SwiftyJSON
 
 let FPS = 20
 let TOTAL_SECONDS = 2
+let FADING_FRAMES = 14
 
 class ViewController: UIViewController {
 
@@ -61,7 +62,7 @@ class ViewController: UIViewController {
         polylineLower.strokeWidth = 2
         polylineLower.map = mapView
 
-        polylineUpper.strokeColor = .gray
+        polylineUpper.strokeColor = .lightGray
         polylineUpper.strokeWidth = 2
         polylineUpper.map = mapView
 
@@ -142,7 +143,17 @@ class ViewController: UIViewController {
         currentTimingIndexUpper = 0
         timerUpper = Timer.scheduledTimer(withTimeInterval: 1.0/Double(FPS), repeats: true) { (timer: Timer) in
             self.polylineUpper.path = self.allTimingRoutes[self.currentTimingIndexUpper]
+
+            if self.currentTimingIndexUpper == 0 {
+                // Reset line alpha
+                self.polylineUpper.strokeColor = UIColor(red: 211.0/255.0, green: 211.0/255.0, blue: 211.0/255.0, alpha: 1.0)
+            } else if self.currentTimingIndexUpper >= self.totalTimingIntervals - FADING_FRAMES {
+                // Change line alpha when the line is ending.
+                self.polylineUpper.strokeColor = UIColor(red: 211.0/255.0, green: 211.0/255.0, blue: 211.0/255.0, alpha: CGFloat(1.0 * Double(self.totalTimingIntervals - self.currentTimingIndexUpper) / Double(FADING_FRAMES)))
+            }
+
             self.currentTimingIndexUpper = (self.currentTimingIndexUpper + 1) % (self.totalTimingIntervals + 1)
+
         }
     }
 
