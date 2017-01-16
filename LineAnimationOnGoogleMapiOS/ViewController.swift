@@ -11,7 +11,7 @@ import GoogleMaps
 import AFNetworking
 import SwiftyJSON
 
-let FPS = 20
+let FPS = 30
 let TOTAL_SECONDS = 2
 let FADING_FRAMES = 14
 
@@ -104,7 +104,7 @@ class ViewController: UIViewController {
             self.routeGenerator = RouteGenerator(
                 originalPath: path!,
                 totalTimingIntervals: self.totalTimingIntervals,
-                timingFunction: RSTimingFunction.init(controlPoint1: CGPoint(x: 0.6, y: 0), controlPoint2: CGPoint(x: 0.4, y: 1.0)))
+                timingFunction: RSTimingFunction.init(controlPoint1: CGPoint(x: 0.7, y: 0), controlPoint2: CGPoint(x: 0.3, y: 1.0)))
 
             // Gets and caches all timing routes.
             // (But the bottle neck is not at computing. It's in google maps rendering.)
