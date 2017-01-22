@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,17 +41,23 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jn9-l3-5Yx">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jn9-l3-5Yx">
                                 <rect key="frame" x="16" y="629" width="60" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="Iki-RE-nue"/>
+                                    <constraint firstAttribute="height" constant="30" id="L06-41-yH4"/>
+                                </constraints>
                                 <state key="normal" title="Restart"/>
                                 <connections>
                                     <action selector="didPressButtonRestart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zln-nZ-MBP"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="H06-Tj-1ub">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="H06-Tj-1ub">
                                 <rect key="frame" x="107" y="630" width="252" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="Bbs-Cj-N6J"/>
+                                    <constraint firstAttribute="width" constant="252" id="ddU-Rc-nbu"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Solid"/>
                                     <segment title="Gradient 1"/>
@@ -63,10 +70,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="H06-Tj-1ub" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="1Q3-Dk-jGs"/>
                             <constraint firstItem="z7e-Hq-9YU" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="13" id="2eA-MA-bDR"/>
                             <constraint firstAttribute="trailing" secondItem="WRY-v5-5UJ" secondAttribute="trailing" id="4oI-jE-ggC"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="H06-Tj-1ub" secondAttribute="bottom" constant="9" id="71T-61-ha4"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Jn9-l3-5Yx" secondAttribute="bottom" constant="8" id="BoA-Af-9Cm"/>
                             <constraint firstItem="WRY-v5-5UJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="1" id="Fox-wI-5qB"/>
                             <constraint firstItem="WRY-v5-5UJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="GgS-1a-KvF"/>
+                            <constraint firstItem="Jn9-l3-5Yx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="U7c-XW-91W"/>
                             <constraint firstAttribute="trailing" secondItem="z7e-Hq-9YU" secondAttribute="trailing" constant="3" id="vve-ju-S2o"/>
                         </constraints>
                     </view>

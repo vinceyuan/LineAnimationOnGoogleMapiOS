@@ -53,7 +53,7 @@ class ViewController: UIViewController, GMSMapViewDelegate  {
         super.viewDidLoad()
 
         let viewFrame = view.frame;
-        let mapFrame = CGRect(x: 0, y: 44, width: viewFrame.size.width, height: viewFrame.size.width)
+        let mapFrame = CGRect(x: 0, y: 44, width: viewFrame.size.width, height: viewFrame.size.height - 90)
 
         // Create a GMSCameraPosition that tells the map to display coordinate.
         let camera = GMSCameraPosition.camera(withLatitude: 1.2863672, longitude: 103.8543371, zoom: 14)
