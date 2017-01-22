@@ -38,7 +38,7 @@ class ViewController: UIViewController, GMSMapViewDelegate  {
     var routeGenerator: RouteGenerator! = nil
     var totalTimingIntervals: Int = TOTAL_SECONDS * FPS
     var allTimingRoutes: [GMSPath] = []
-    var allTimingGradientSpans: [GMSStyleSpan] = []
+    var allTimingGradientSpansArray: [[GMSStyleSpan]] = []
 
     var currentTimingIndexLower: Int = 0
     var timerLower: Timer! = nil
@@ -102,11 +102,11 @@ class ViewController: UIViewController, GMSMapViewDelegate  {
             polylineLower.strokeColor = .black
             polylineUpper.strokeColor = UIColor(red: 91.0/255.0, green: 91.0/255.0, blue: 91.0/255.0, alpha: 91.0/255.0)
         case .gradient1:
-            polylineLower.strokeColor = .white
+            polylineLower.strokeColor = .lightGray
             let gradient = GMSStrokeStyle.gradient(from: .green, to: .black)
             polylineUpper.spans = [GMSStyleSpan(style: gradient)]
         case .gradient2:
-            polylineLower.strokeColor = .white
+            polylineLower.strokeColor = .lightGray
         }
         polylineLower.strokeWidth = 3
         polylineLower.map = mapView
@@ -176,6 +176,7 @@ class ViewController: UIViewController, GMSMapViewDelegate  {
             // Gets and caches all timing routes.
             // (But the bottle neck is not at computing. It's in google maps rendering.)
             self.allTimingRoutes = self.routeGenerator.allTimingRoutes()
+            self.allTimingGradientSpansArray = self.routeGenerator.allTimingGradientSpansArray(startColor: .green, endColor: .black)
 
             self.startAnimation()
 
@@ -211,12 +212,16 @@ class ViewController: UIViewController, GMSMapViewDelegate  {
         timerUpper = Timer.scheduledTimer(withTimeInterval: 1.0/Double(FPS), repeats: true) { (timer: Timer) in
             self.polylineUpper.path = self.allTimingRoutes[self.currentTimingIndexUpper]
 
-            if self.currentTimingIndexUpper == 0 {
-                // Reset line alpha
-                self.polylineUpper.strokeColor = UIColor(red: 211.0/255.0, green: 211.0/255.0, blue: 211.0/255.0, alpha: 1.0)
-            } else if self.currentTimingIndexUpper >= self.totalTimingIntervals - FADING_FRAMES {
-                // Change line alpha when the line is ending.
-                self.polylineUpper.strokeColor = UIColor(red: 211.0/255.0, green: 211.0/255.0, blue: 211.0/255.0, alpha: CGFloat(1.0 * Double(self.totalTimingIntervals - self.currentTimingIndexUpper) / Double(FADING_FRAMES)))
+            if self.colorMode == .solid {
+                if self.currentTimingIndexUpper == 0 {
+                    // Reset line alpha
+                    self.polylineUpper.strokeColor = UIColor(red: 211.0/255.0, green: 211.0/255.0, blue: 211.0/255.0, alpha: 1.0)
+                } else if self.currentTimingIndexUpper >= self.totalTimingIntervals - FADING_FRAMES {
+                    // Change line alpha when the line is ending.
+                    self.polylineUpper.strokeColor = UIColor(red: 211.0/255.0, green: 211.0/255.0, blue: 211.0/255.0, alpha: CGFloat(1.0 * Double(self.totalTimingIntervals - self.currentTimingIndexUpper) / Double(FADING_FRAMES)))
+                }
+            } else if self.colorMode == .gradient2 {
+                self.polylineUpper.spans = self.allTimingGradientSpansArray[self.currentTimingIndexUpper]
             }
 
             self.currentTimingIndexUpper = (self.currentTimingIndexUpper + 1) % (self.totalTimingIntervals + 1)

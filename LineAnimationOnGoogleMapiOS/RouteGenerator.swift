@@ -52,6 +52,17 @@ class RouteGenerator {
         return routes
     }
 
+    func allTimingGradientSpansArray(startColor: UIColor, endColor: UIColor) -> [[GMSStyleSpan]] {
+        var spansArray: [[GMSStyleSpan]] = []
+        for i: Int in 0 ... totalTimingIntervals {
+            let newColor = color(at: i, startColor: startColor, endColor: endColor)
+            var spans:[GMSStyleSpan] = []
+            spans.append(GMSStyleSpan(style: GMSStrokeStyle.gradient(from: startColor, to: newColor)))
+            spansArray.append(spans)
+        }
+        return spansArray
+    }
+
     // Get a route at timing index
     func route(at timingIndex: Int) -> GMSPath {
         let route = GMSMutablePath()
@@ -84,6 +95,22 @@ class RouteGenerator {
             }
         }
         return (cumulativeDistances.count - 1, true)
+    }
+
+    func color(at timingIndex: Int, startColor: UIColor, endColor: UIColor) -> UIColor {
+        let x = CGFloat(Double(timingIndex) / Double(totalTimingIntervals))
+        let y = timingFunction.valueFor(x: x)
+
+        var startRed: CGFloat = 0, startGreen: CGFloat = 0, startBlue: CGFloat = 0, startAlpha: CGFloat = 0
+        var endRed: CGFloat = 0, endGreen: CGFloat = 0, endBlue: CGFloat = 0, endAlpha: CGFloat = 0
+        startColor.getRed(&startRed, green: &startGreen, blue: &startBlue, alpha: &startAlpha)
+        endColor.getRed(&endRed, green: &endGreen, blue: &endBlue, alpha: &endAlpha)
+        let red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat
+        red = startRed + (endRed - startRed) * y
+        green = startGreen + (endGreen - startGreen) * y
+        blue = startBlue + (endBlue - startBlue) * y
+        alpha = startAlpha + (endAlpha - startAlpha) * y
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 
 }
