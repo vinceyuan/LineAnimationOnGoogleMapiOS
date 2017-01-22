@@ -11,11 +11,11 @@ import GoogleMaps
 import AFNetworking
 import SwiftyJSON
 
-let FPS = 20
+let FPS = 24
 let TOTAL_SECONDS = 2
 let FADING_FRAMES = 14
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, GMSMapViewDelegate  {
 
     var mapView: GMSMapView! = nil
     var markerStart = GMSMarker()
@@ -50,10 +50,14 @@ class ViewController: UIViewController {
         markerStart.position = positionStart
         markerStart.icon = GMSMarker.markerImage(with: .blue)
         markerStart.map = mapView
+        markerStart.isDraggable = true
 
         markerEnd.position = positionEnd
         markerEnd.icon = GMSMarker.markerImage(with: .green)
         markerEnd.map = mapView
+        markerEnd.isDraggable = true
+
+        mapView.delegate = self
 
         createPolylinesAndGetRoute()
     }
@@ -92,10 +96,23 @@ class ViewController: UIViewController {
 
     }
 
-    @IBAction func didPressButtonRestart(_ sender: Any) {
+    func restart() {
         stopAnimation()
         removePolylinesFromMap()
         createPolylinesAndGetRoute()
+    }
+
+    @IBAction func didPressButtonRestart(_ sender: Any) {
+        restart()
+    }
+
+    func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
+        if (marker == markerStart) {
+            positionStart = marker.position
+        } else {
+            positionEnd = marker.position
+        }
+        restart()
     }
 
     func getRoute() {
