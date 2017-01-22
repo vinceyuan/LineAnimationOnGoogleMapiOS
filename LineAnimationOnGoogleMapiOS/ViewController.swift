@@ -20,6 +20,10 @@ let FPS = 40
 let TOTAL_SECONDS = 2
 let FADING_FRAMES = 14
 
+enum ColorMode: Int {
+    case solid = 0, gradient1, gradient2
+}
+
 class ViewController: UIViewController, GMSMapViewDelegate  {
 
     var mapView: GMSMapView! = nil
@@ -34,11 +38,16 @@ class ViewController: UIViewController, GMSMapViewDelegate  {
     var routeGenerator: RouteGenerator! = nil
     var totalTimingIntervals: Int = TOTAL_SECONDS * FPS
     var allTimingRoutes: [GMSPath] = []
+    var allTimingGradientSpans: [GMSStyleSpan] = []
 
     var currentTimingIndexLower: Int = 0
     var timerLower: Timer! = nil
     var currentTimingIndexUpper: Int = 0
     var timerUpper: Timer! = nil
+
+    var colorMode: ColorMode = .solid
+
+    @IBOutlet weak var segmentedControlColor: UISegmentedControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,19 +90,27 @@ class ViewController: UIViewController, GMSMapViewDelegate  {
     func removePolylinesFromMap() {
         polylineUpper.path = nil
         polylineLower.path = nil
+        polylineUpper.spans = nil
         polylineUpper.map = nil
         polylineLower.map = nil
     }
 
     func createPolylinesAndGetRoute() {
         // Creates two polylines
-        //        let gradient = GMSStrokeStyle.gradient(from: .green, to: .black)
-        //        polyline.spans = [GMSStyleSpan(style: gradient)]
-        polylineLower.strokeColor = .black
+        switch colorMode {
+        case .solid:
+            polylineLower.strokeColor = .black
+            polylineUpper.strokeColor = UIColor(red: 91.0/255.0, green: 91.0/255.0, blue: 91.0/255.0, alpha: 91.0/255.0)
+        case .gradient1:
+            polylineLower.strokeColor = .white
+            let gradient = GMSStrokeStyle.gradient(from: .green, to: .black)
+            polylineUpper.spans = [GMSStyleSpan(style: gradient)]
+        case .gradient2:
+            polylineLower.strokeColor = .white
+        }
         polylineLower.strokeWidth = 3
         polylineLower.map = mapView
 
-        polylineUpper.strokeColor = UIColor(red: 91.0/255.0, green: 91.0/255.0, blue: 91.0/255.0, alpha: 91.0/255.0)
         polylineUpper.strokeWidth = 3
         polylineUpper.map = mapView
         
@@ -110,6 +127,14 @@ class ViewController: UIViewController, GMSMapViewDelegate  {
     @IBAction func didPressButtonRestart(_ sender: Any) {
         restart()
     }
+
+    @IBAction func didChangeSegmentedControlColor(_ sender: Any) {
+        stopAnimation()
+        removePolylinesFromMap()
+        colorMode = ColorMode(rawValue: segmentedControlColor.selectedSegmentIndex)!
+        createPolylinesAndGetRoute()
+    }
+
 
     func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
         if (marker == markerStart) {

@@ -41,13 +41,25 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jn9-l3-5Yx">
-                                <rect key="frame" x="164" y="629" width="60" height="30"/>
+                                <rect key="frame" x="16" y="629" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Restart"/>
                                 <connections>
                                     <action selector="didPressButtonRestart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zln-nZ-MBP"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="H06-Tj-1ub">
+                                <rect key="frame" x="107" y="630" width="252" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Solid"/>
+                                    <segment title="Gradient 1"/>
+                                    <segment title="Gradient 2"/>
+                                </segments>
+                                <connections>
+                                    <action selector="didChangeSegmentedControlColor:" destination="BYZ-38-t0r" eventType="valueChanged" id="6kH-iF-Guz"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -58,6 +70,9 @@
                             <constraint firstAttribute="trailing" secondItem="z7e-Hq-9YU" secondAttribute="trailing" constant="3" id="vve-ju-S2o"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="segmentedControlColor" destination="H06-Tj-1ub" id="cJz-Tg-ncK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
