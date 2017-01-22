@@ -11,7 +11,7 @@ import GoogleMaps
 import AFNetworking
 import SwiftyJSON
 
-let FPS = 30
+let FPS = 20
 let TOTAL_SECONDS = 2
 let FADING_FRAMES = 14
 
@@ -55,18 +55,7 @@ class ViewController: UIViewController {
         markerEnd.icon = GMSMarker.markerImage(with: .green)
         markerEnd.map = mapView
 
-        // Creates two polylines
-//        let gradient = GMSStrokeStyle.gradient(from: .green, to: .black)
-//        polyline.spans = [GMSStyleSpan(style: gradient)]
-        polylineLower.strokeColor = .black
-        polylineLower.strokeWidth = 2
-        polylineLower.map = mapView
-
-        polylineUpper.strokeColor = .lightGray
-        polylineUpper.strokeWidth = 2
-        polylineUpper.map = mapView
-
-        getRoute()
+        createPolylinesAndGetRoute()
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,8 +63,39 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func didPressButtonChange(_ sender: Any) {
+
+    func stopAnimation() {
+        timerUpper.invalidate()
+        timerLower.invalidate()
+    }
+
+    func removePolylinesFromMap() {
+        polylineUpper.path = nil
+        polylineLower.path = nil
+        polylineUpper.map = nil
+        polylineLower.map = nil
+    }
+
+    func createPolylinesAndGetRoute() {
+        // Creates two polylines
+        //        let gradient = GMSStrokeStyle.gradient(from: .green, to: .black)
+        //        polyline.spans = [GMSStyleSpan(style: gradient)]
+        polylineLower.strokeColor = .black
+        polylineLower.strokeWidth = 2
+        polylineLower.map = mapView
+
+        polylineUpper.strokeColor = .lightGray
+        polylineUpper.strokeWidth = 2
+        polylineUpper.map = mapView
         
+        getRoute()
+
+    }
+
+    @IBAction func didPressButtonRestart(_ sender: Any) {
+        stopAnimation()
+        removePolylinesFromMap()
+        createPolylinesAndGetRoute()
     }
 
     func getRoute() {

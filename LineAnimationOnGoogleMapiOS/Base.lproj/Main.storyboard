@@ -41,11 +41,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jn9-l3-5Yx">
-                                <rect key="frame" x="164" y="629" width="46" height="30"/>
+                                <rect key="frame" x="164" y="629" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Restart"/>
                                 <connections>
-                                    <action selector="didPressButtonChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xWb-BT-I32"/>
+                                    <action selector="didPressButtonRestart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zln-nZ-MBP"/>
                                 </connections>
                             </button>
                         </subviews>
