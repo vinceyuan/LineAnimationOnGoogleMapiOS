@@ -11,7 +11,12 @@ import GoogleMaps
 import AFNetworking
 import SwiftyJSON
 
-let FPS = 24
+#if (arch(i386) || arch(x86_64)) && os(iOS)
+let FPS = 20
+#else
+let FPS = 40
+#endif
+
 let TOTAL_SECONDS = 2
 let FADING_FRAMES = 14
 
@@ -85,11 +90,11 @@ class ViewController: UIViewController, GMSMapViewDelegate  {
         //        let gradient = GMSStrokeStyle.gradient(from: .green, to: .black)
         //        polyline.spans = [GMSStyleSpan(style: gradient)]
         polylineLower.strokeColor = .black
-        polylineLower.strokeWidth = 2
+        polylineLower.strokeWidth = 3
         polylineLower.map = mapView
 
-        polylineUpper.strokeColor = .lightGray
-        polylineUpper.strokeWidth = 2
+        polylineUpper.strokeColor = UIColor(red: 91.0/255.0, green: 91.0/255.0, blue: 91.0/255.0, alpha: 91.0/255.0)
+        polylineUpper.strokeWidth = 3
         polylineUpper.map = mapView
         
         getRoute()
