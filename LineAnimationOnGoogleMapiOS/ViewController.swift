@@ -33,7 +33,7 @@ class ViewController: UIViewController, GMSMapViewDelegate  {
     var polylineUpper = GMSPolyline(path: GMSPath())
 
     var positionStart = CLLocationCoordinate2D(latitude: 1.277287, longitude: 103.845669)
-    var positionEnd = CLLocationCoordinate2D(latitude: 1.292747, longitude: 103.859696)
+    var positionEnd = CLLocationCoordinate2D(latitude: 1.298334, longitude: 103.857955)
 
     var routeGenerator: RouteGenerator! = nil
     var totalTimingIntervals: Int = TOTAL_SECONDS * FPS
